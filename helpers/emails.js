@@ -14,7 +14,7 @@ const emailRegistro = async (datos) => {
 
     // Enviar el email
     await transport.sendMail({
-        from: '755e91001@smtp-brevo.com',
+        from: process.env.EMAIL_USER,
         to: email,
         subject: 'Confirma tu cuenta en BienesRaices.com',
         text: 'Confirma tu cuenta en BienesRaices.com',
@@ -43,16 +43,18 @@ const emailOlvidePassword = async (datos) => {
 
     // Enviar el email
     await transport.sendMail({
-        from: 'BienesRaices.com',
+        from: process.env.EMAIL_USER,
         to: email,
         subject: 'Reestablece tu Password en BienesRaices.com',
         text: 'Reestablece tu Password en BienesRaices.com',
         html: `
         <p>Hola ${nombre}, has solicitado reestablecer tu password en BienesRaices.com</p>
         <p>Sigue el siguiente enlace para generar un password nuevo:
-        <a href="${process.env.BACKEND_URL}:${process.env.PORT ?? 3000}/auth/olvide-password/${token}">Reestablecer Password</a></p>
+        <a href="${process.env.BACKEND_URL}/auth/olvide-password/${token}">Reestablecer Password</a></p>
         <p>Si tu no solicitaste el cambio de password, puedes ignorar el mensaje.</p>
         `
+        //<a href="${process.env.BACKEND_URL}:${process.env.PORT ?? 3000}/auth/olvide-password/${token}">Reestablecer Password</a></p>
+
     })
 }
 
